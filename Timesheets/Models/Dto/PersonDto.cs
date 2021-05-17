@@ -1,4 +1,4 @@
-﻿namespace Timesheets.Models.Dto
+namespace Timesheets.Models.Dto
 {
     public class PersonDto
     {
