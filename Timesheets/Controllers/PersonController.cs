@@ -1,5 +1,5 @@
-﻿using System;
 using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Mvc;
 using Timesheets.Domain.Interfaces;
 using Timesheets.Models;
@@ -60,7 +60,6 @@ namespace Timesheets.Controllers
                         Email = person.Email
                     });
                 }
-
                 return Ok(result);
             }
             catch(System.NullReferenceException)
@@ -87,7 +86,6 @@ namespace Timesheets.Controllers
                         Email = person.Email
                     });
                 }
-
                 return Ok(result);
             }
             catch(System.NullReferenceException)

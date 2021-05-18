@@ -1,6 +1,4 @@
-﻿using System;
 using System.Collections.Generic;
-using Timesheets.Models;
 using Timesheets.Models.Dto;
 using Person = Timesheets.Models.Person;
 

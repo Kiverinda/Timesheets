@@ -1,4 +1,3 @@
-﻿
 namespace Timesheets.Models.Dto
 {
     public class PersonDto
