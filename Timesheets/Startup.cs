@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Timesheets.Data;
 using Timesheets.Data.Implementation;
 using Timesheets.Data.Interfaces;
 using Timesheets.Domain.Implementation;
@@ -12,12 +15,22 @@ namespace Timesheets
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IPersonRepo, PersonRepo>();
-            services.AddScoped<IPersonsManager, PersonsManager>();
-            services.AddSingleton<IPersonsDb, PersonsDb>();
+            services.AddDbContext<TimesheetDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddScoped<ISheetRepo, SheetRepo>();
+            services.AddScoped<IContractManager, ContractManager>();
+            services.AddScoped<ISheetManager, SheetManager>();
+            services.AddScoped<IContractRepo, ContractRepo>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
