@@ -2,8 +2,7 @@
 
 namespace Timesheets.Data.Interfaces
 {
-    public interface IClientRepo: IRepoBase<Client>
+    public interface IClientRepo : IRepoBase<Client>
     {
-        
     }
 }

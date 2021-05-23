@@ -21,15 +21,20 @@ namespace Timesheets
         }
 
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TimesheetDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddScoped<ISheetRepo, SheetRepo>();
+            services.AddScoped<IContractRepo, ContractRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IEmployeeRepo, EmployeeRepo>();
             services.AddScoped<IContractManager, ContractManager>();
             services.AddScoped<ISheetManager, SheetManager>();
-            services.AddScoped<IContractRepo, ContractRepo>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IEmployeeManager, EmployeeManager>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

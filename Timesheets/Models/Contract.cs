@@ -12,7 +12,7 @@ namespace Timesheets.Models
         public DateTime DateEnd { get; set; }
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
-        
+
         public ICollection<Sheet> Sheets { get; set; }
     }
 }

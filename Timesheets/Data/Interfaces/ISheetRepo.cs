@@ -2,8 +2,7 @@
 
 namespace Timesheets.Data.Interfaces
 {
-    public interface ISheetRepo: IRepoBase<Sheet>
+    public interface ISheetRepo : IRepoBase<Sheet>
     {
-        
     }
 }

@@ -5,7 +5,7 @@ using Timesheets.Domain.Interfaces;
 
 namespace Timesheets.Domain.Implementation
 {
-    public class ContractManager: IContractManager
+    public class ContractManager : IContractManager
     {
         private readonly IContractRepo _contractRepo;
 
