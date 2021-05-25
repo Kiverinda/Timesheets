@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Timesheets.Data.Interfaces;
 using Timesheets.Domain.Interfaces;
+using Timesheets.Infrastructure.Extensions;
 using Timesheets.Models;
 using Timesheets.Models.Dto;
 
@@ -28,19 +31,27 @@ namespace Timesheets.Domain.Implementation
             return await _userRepo.GetItems();
         }
 
-        public async Task<Guid> Create(UserRequest userRequest)
+        public async Task<User> GetUser(LoginRequest request)
         {
+            var passwordHash = GetPasswordHash(request.Password);
+            var user = await _userRepo.GetByLoginAndPasswordHash(request.Login, passwordHash);
+
+            return user;
+        }
+
+        public async Task<Guid> Create(CreateUserRequest request)
+        {
+            request.EnsureNotNull(nameof(request));
+
             var user = new User
             {
                 Id = Guid.NewGuid(),
-                FirstName = userRequest.FirstName,
-                MiddleName = userRequest.MiddleName,
-                LastName = userRequest.LastName,
-                Comment = userRequest.Comment,
-                Email = userRequest.Email,
-                Username = userRequest.Username
+                Username = request.Username,
+                PasswordHash = GetPasswordHash(request.Password),
+                Role = request.Role
             };
-            await _userRepo.Add(user);
+
+            await _userRepo.Create(user);
 
             return user.Id;
         }
@@ -58,6 +69,14 @@ namespace Timesheets.Domain.Implementation
                 Username = userRequest.Username
             };
             await _userRepo.Update(user);
+        }
+
+        private static byte[] GetPasswordHash(string password)
+        {
+            using (var sha1 = new SHA1CryptoServiceProvider())
+            {
+                return sha1.ComputeHash(Encoding.Unicode.GetBytes(password));
+            }
         }
     }
 }

@@ -29,4 +29,3 @@ namespace Timesheets.Data.Implementation
         }
     }
 }
-

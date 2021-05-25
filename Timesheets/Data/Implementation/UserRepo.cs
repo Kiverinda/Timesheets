@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Timesheets.Data.Ef;
 using Timesheets.Data.Interfaces;
 using Timesheets.Models;
 
@@ -42,12 +43,26 @@ namespace Timesheets.Data.Implementation
 
         public async Task Delete(Guid id)
         {
-            User user = await _context.Users.SingleOrDefaultAsync (x => x.Id == id);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
             if (user != null)
             {
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<User> GetByLoginAndPasswordHash(string login, byte[] passwordHash)
+        {
+            return
+                await _context.Users
+                    .Where(x => x.Username == login && x.PasswordHash == passwordHash)
+                    .FirstOrDefaultAsync();
+        }
+
+        public async Task Create(User user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

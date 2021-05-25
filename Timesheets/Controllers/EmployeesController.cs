@@ -48,7 +48,7 @@ namespace Timesheets.Controllers
             await _employeeManager.Update(id, employee);
             return Ok();
         }
-        
+
         /// <summary> Обновляет запись сотрудника </summary>
         [HttpDelete("delete/")]
         public async Task<IActionResult> Delete([FromQuery] Guid id, [FromBody] EmployeeRequest employee)
