@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Timesheets.Models;
+﻿using Timesheets.Models;
 using Timesheets.Models.Dto;
 
 namespace Timesheets.Domain.Interfaces

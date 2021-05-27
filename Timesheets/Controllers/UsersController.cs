@@ -17,16 +17,18 @@ namespace Timesheets.Controllers
         {
             _userManager = userManager;
         }
-        [Authorize(Roles = "user")]
+
         /// <summary> Возвращает запись пользователя </summary>
+        [Authorize(Roles = "user")]
         [HttpGet("user/")]
         public IActionResult Get([FromQuery] Guid id)
         {
             var result = _userManager.GetItem(id);
             return Ok(result);
         }
-        [Authorize(Roles = "admin")]
+
         /// <summary> Возвращает все записи пользователей </summary>
+        [Authorize(Roles = "admin")]
         [HttpGet("all/")]
         public async Task<IActionResult> GetItems()
         {
@@ -35,6 +37,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Создает запись пользователя </summary>
+        [Authorize(Roles = "admin")]
         [HttpPost("create/")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
@@ -44,6 +47,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Обновляет запись пользователя </summary>
+        [Authorize(Roles = "admin")]
         [HttpPut("update/")]
         public async Task<IActionResult> Update([FromQuery] Guid id, [FromBody] UserRequest sheet)
         {

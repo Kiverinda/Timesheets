@@ -13,11 +13,13 @@ namespace Timesheets.Domain.Implementation
 {
     public class UserManager : IUserManager
     {
+        private readonly IRefreshTokenRepo _refreshTokenRepo;
         private readonly IUserRepo _userRepo;
 
-        public UserManager(IUserRepo userRepo)
+        public UserManager(IUserRepo userRepo, IRefreshTokenRepo refreshTokenRepo)
         {
             _userRepo = userRepo;
+            _refreshTokenRepo = refreshTokenRepo;
         }
 
         public async Task<User> GetItem(Guid id)

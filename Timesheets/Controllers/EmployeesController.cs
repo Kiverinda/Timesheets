@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Timesheets.Domain.Interfaces;
 using Timesheets.Models.Dto;
@@ -18,6 +19,8 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Возвращает запись сотрудника </summary>
+        
+        [Authorize(Roles = "admin")]
         [HttpGet("employee/")]
         public IActionResult Get([FromQuery] Guid id)
         {
@@ -26,6 +29,8 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Возвращает все записи сотрудников </summary>
+        
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> GetItems()
         {
@@ -34,6 +39,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Создает запись сотрудника </summary>
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] EmployeeRequest employee)
         {
@@ -42,6 +48,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Обновляет запись сотрудника </summary>
+        [Authorize(Roles = "admin")]
         [HttpPut("update/")]
         public async Task<IActionResult> Update([FromQuery] Guid id, [FromBody] EmployeeRequest employee)
         {
@@ -50,6 +57,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Обновляет запись сотрудника </summary>
+        [Authorize(Roles = "admin")]
         [HttpDelete("delete/")]
         public async Task<IActionResult> Delete([FromQuery] Guid id, [FromBody] EmployeeRequest employee)
         {

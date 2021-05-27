@@ -10,8 +10,8 @@ using Timesheets.Data.Ef;
 namespace Timesheets.Migrations
 {
     [DbContext(typeof(TimesheetDbContext))]
-    [Migration("20210525140549_Create")]
-    partial class Create
+    [Migration("20210527025336_AddedRefreshToken")]
+    partial class AddedRefreshToken
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,6 +104,23 @@ namespace Timesheets.Migrations
                     b.HasIndex("ContractId");
 
                     b.ToTable("invoices");
+                });
+
+            modelBuilder.Entity("Timesheets.Models.RefreshToken", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("refreshtoken");
                 });
 
             modelBuilder.Entity("Timesheets.Models.Service", b =>

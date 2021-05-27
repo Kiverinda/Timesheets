@@ -9,6 +9,7 @@ using Timesheets.Data.Implementation;
 using Timesheets.Data.Interfaces;
 using Timesheets.Domain.Implementation;
 using Timesheets.Domain.Interfaces;
+using Timesheets.Models;
 using Timesheets.Models.Dto.Authentication;
 
 namespace Timesheets.Infrastructure.Extensions
@@ -61,6 +62,7 @@ namespace Timesheets.Infrastructure.Extensions
             services.AddScoped<ISheetRepo, SheetRepo>();
             services.AddScoped<IContractRepo, ContractRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IRefreshTokenRepo, RefreshTokenRepo>();
         }
 
         public static void ConfigureBackendSwagger(this IServiceCollection services)

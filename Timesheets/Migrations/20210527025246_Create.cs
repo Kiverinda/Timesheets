@@ -50,6 +50,19 @@ namespace Timesheets.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "refreshtoken",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Token = table.Column<string>(type: "text", nullable: true),
+                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_refreshtoken", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "services",
                 columns: table => new
                 {
@@ -172,6 +185,9 @@ namespace Timesheets.Migrations
         {
             migrationBuilder.DropTable(
                 name: "clients");
+
+            migrationBuilder.DropTable(
+                name: "refreshtoken");
 
             migrationBuilder.DropTable(
                 name: "sheets");
