@@ -12,8 +12,8 @@ namespace Timesheets.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILoginManager _loginManager;
-        private readonly IRefreshTokenRepo _refreshTokenRepo;
         private readonly IUserManager _userManager;
+        private readonly IRefreshTokenRepo _refreshTokenRepo;
 
         public LoginController(ILoginManager loginManager, IUserManager userManager,
             IRefreshTokenRepo refreshTokenRepo)
@@ -35,18 +35,18 @@ namespace Timesheets.Controllers
             return Ok(loginResponse);
         }
 
-        [HttpPost]
+        [HttpPost ("/refreshtoken")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
-            var token = await _refreshTokenRepo.GetItem(request.Token);
-            if (token == null) return Unauthorized();
+            //var token = await _refreshTokenRepo.GetItem(request.Token);
+            //if (token == null) return Unauthorized();
             
-            var user = await _userManager.GetItem(token.UserId);
-            if (user == null) return Unauthorized();
+           //var user = await _userManager.GetItem(token.UserId);
+            //if (user == null) return Unauthorized();
 
-            var loginResponse = _loginManager.Authenticate(user);
+            //var loginResponse = _loginManager.Authenticate(user);
 
-            return Ok(loginResponse);
+            return Ok();
         }
     }
 }

@@ -6,7 +6,9 @@ namespace Timesheets.Data.Interfaces
 {
     public interface IRefreshTokenRepo
     {
-        Task<RefreshToken> GetItem(string tokenRow);
-        Task CreateOrUpdate(string tokenRow, User user);
+        Task<RefreshToken> GetItem(Guid id);
+        Task Update(RefreshToken tokenRow);
+        
+        Task Add(RefreshToken tokenRow);
     }
 }

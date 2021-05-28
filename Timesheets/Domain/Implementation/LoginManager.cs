@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
@@ -15,15 +16,15 @@ namespace Timesheets.Domain.Implementation
     {
         private readonly JwtAccessOptions _jwtAccessOptions;
         private readonly JwtRefreshOptions _jwtRefreshOptions;
-        private readonly IRefreshTokenRepo _refreshTokenManager;
+        private readonly IRefreshTokenManager _refreshTokenManager;
 
         public LoginManager(IOptions<JwtAccessOptions> jwtAccessOptions,
             IOptions<JwtRefreshOptions> jwtRefreshOptions,
-            IRefreshTokenRepo refreshTokenRepo)
+            IRefreshTokenManager refreshTokenManager)
         {
             _jwtAccessOptions = jwtAccessOptions.Value;
             _jwtRefreshOptions = jwtRefreshOptions.Value;
-            _refreshTokenManager = refreshTokenRepo;
+            _refreshTokenManager = refreshTokenManager;
         }
 
         public LoginResponse Authenticate(User user)
@@ -40,8 +41,10 @@ namespace Timesheets.Domain.Implementation
             var accessToken = securityHandler.WriteToken(accessTokenRaw);
             
             var refreshTokenRaw = _jwtRefreshOptions.GenerateToken(claims);
-            var refreshToken = securityHandler.WriteToken(refreshTokenRaw);
-            _refreshTokenManager.CreateOrUpdate(refreshToken, user);
+            var refreshHandler = new JwtSecurityTokenHandler();
+            var refreshToken = refreshHandler.WriteToken(refreshTokenRaw);
+            _refreshTokenManager.CreateOrUpdate(new RefreshToken()
+                {Token = refreshToken , UserId = user.Id, Date = DateTime.UtcNow});
 
             var loginResponse = new LoginResponse
             {

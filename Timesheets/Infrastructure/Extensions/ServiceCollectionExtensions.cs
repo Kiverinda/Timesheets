@@ -30,7 +30,7 @@ namespace Timesheets.Infrastructure.Extensions
         public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtAccessOptions>(configuration.GetSection("Authentication:JwtAccessOptions"));
-
+            services.Configure<JwtRefreshOptions>(configuration.GetSection("Authentication:JwtRefreshOptions"));
             var jwtSettings = new JwtOptions();
             configuration.Bind("Authentication:JwtAccessOptions", jwtSettings);
 
@@ -55,6 +55,7 @@ namespace Timesheets.Infrastructure.Extensions
             services.AddScoped<IContractManager, ContractManager>();
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<ILoginManager, LoginManager>();
+            services.AddScoped<IRefreshTokenManager, RefreshTokenManager>();
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)
@@ -62,6 +63,7 @@ namespace Timesheets.Infrastructure.Extensions
             services.AddScoped<ISheetRepo, SheetRepo>();
             services.AddScoped<IContractRepo, ContractRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IRefreshTokenRepo, RefreshTokenRepo>();
             services.AddScoped<IRefreshTokenRepo, RefreshTokenRepo>();
         }
 

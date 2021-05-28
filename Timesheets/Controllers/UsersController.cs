@@ -37,7 +37,6 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Создает запись пользователя </summary>
-        [Authorize(Roles = "admin")]
         [HttpPost("create/")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
