@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +10,9 @@ using Timesheets.Data.Implementation;
 using Timesheets.Data.Interfaces;
 using Timesheets.Domain.Implementation;
 using Timesheets.Domain.Interfaces;
+using Timesheets.Infrastructure.Validation;
 using Timesheets.Models;
+using Timesheets.Models.Dto;
 using Timesheets.Models.Dto.Authentication;
 
 namespace Timesheets.Infrastructure.Extensions
@@ -90,6 +93,11 @@ namespace Timesheets.Infrastructure.Extensions
                     }
                 });
             });
+        }
+
+        public static void ConfigureValidation(this IServiceCollection services)
+        {
+            services.AddTransient<IValidator<SheetRequest>,SheetRequestValidator>();
         }
     }
 }
