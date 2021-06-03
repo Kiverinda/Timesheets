@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Timesheets.Data.Interfaces;
-using Timesheets.Domain.Interfaces;
+using Timesheets.Domain.Managers.Interfaces;
 
-namespace Timesheets.Domain.Implementation
+namespace Timesheets.Domain.Managers.Implementation
 {
-    public class ContractManager : IContractManager
+    public class ContractManager: IContractManager
     {
         private readonly IContractRepo _contractRepo;
 

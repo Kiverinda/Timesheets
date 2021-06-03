@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Timesheets.Models
+namespace Timesheets.Models.Entities
 {
     /// <summary> Refresh Token пользователей </summary>
     public class RefreshToken
