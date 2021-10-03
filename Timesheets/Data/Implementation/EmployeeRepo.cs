@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Timesheets.Data.Ef;
 using Timesheets.Data.Interfaces;
 using Timesheets.Models;
 
@@ -40,7 +41,7 @@ namespace Timesheets.Data.Implementation
 
         public async Task Delete(Guid id)
         {
-            Employee employee = await _context.Employees.SingleOrDefaultAsync (x => x.Id == id);
+            var employee = await _context.Employees.SingleOrDefaultAsync(x => x.Id == id);
             if (employee != null)
             {
                 _context.Employees.Remove(employee);

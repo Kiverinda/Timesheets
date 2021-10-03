@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Timesheets.Domain.Interfaces;
 using Timesheets.Models.Dto;
@@ -18,6 +19,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Возвращает запись пользователя </summary>
+        [Authorize(Roles = "user")]
         [HttpGet("user/")]
         public IActionResult Get([FromQuery] Guid id)
         {
@@ -26,7 +28,8 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Возвращает все записи пользователей </summary>
-        [HttpGet]
+        [Authorize(Roles = "admin")]
+        [HttpGet("all/")]
         public async Task<IActionResult> GetItems()
         {
             var result = await _userManager.GetItems();
@@ -34,14 +37,16 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Создает запись пользователя </summary>
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] UserRequest user)
+        [HttpPost("create/")]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
-            var id = await _userManager.Create(user);
-            return Ok(id);
+            var response = await _userManager.Create(request);
+
+            return Ok(response);
         }
 
         /// <summary> Обновляет запись пользователя </summary>
+        [Authorize(Roles = "admin")]
         [HttpPut("update/")]
         public async Task<IActionResult> Update([FromQuery] Guid id, [FromBody] UserRequest sheet)
         {
