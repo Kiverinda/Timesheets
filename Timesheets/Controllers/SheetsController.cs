@@ -8,9 +8,9 @@ using Timesheets.Models.Dto;
 namespace Timesheets.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
-    public class SheetsController : ControllerBase
+    public class SheetsController : TimesheetsBaseController
     {
         private readonly IContractManager _contractManager;
         private readonly ISheetManager _sheetManager;
@@ -40,7 +40,7 @@ namespace Timesheets.Controllers
         }
 
         /// <summary> Создает запись табеля </summary>
-        [Authorize(Roles = "user")]
+        //[Authorize(Roles = "user")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SheetRequest sheet)
         {
