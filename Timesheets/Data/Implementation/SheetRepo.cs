@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Timesheets.Data.Ef;
 using Timesheets.Data.Interfaces;
 using Timesheets.Models;
+using Timesheets.Models.Entities;
 
 namespace Timesheets.Data.Implementation
 {
-    public class SheetRepo : ISheetRepo
+    public class SheetRepo: ISheetRepo
     {
         private readonly TimesheetDbContext _context;
 
@@ -26,7 +28,9 @@ namespace Timesheets.Data.Implementation
 
         public async Task<IEnumerable<Sheet>> GetItems()
         {
-            return await _context.Sheets.ToListAsync();
+            var result =  await _context.Sheets.ToListAsync();
+            
+            return result;
         }
 
         public async Task Add(Sheet item)
@@ -39,6 +43,16 @@ namespace Timesheets.Data.Implementation
         {
             _context.Sheets.Update(item);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Sheet>> GetItemsForInvoice(Guid contractId, DateTime dateStart, DateTime dateEnd)
+        {
+            var sheets =  await _context.Sheets
+                .Where(x => x.ContractId == contractId)
+                .Where(x => x.Date >= dateStart && x.Date <= dateEnd)
+                .ToListAsync();
+
+            return sheets;
         }
     }
 }

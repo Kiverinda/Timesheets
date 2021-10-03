@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Timesheets.Data.Ef.Configurations;
 using Timesheets.Models;
+using Timesheets.Models.Entities;
 
 namespace Timesheets.Data.Ef
 {
@@ -16,7 +17,7 @@ namespace Timesheets.Data.Ef
         public DbSet<Service> Services { get; set; }
         public DbSet<Sheet> Sheets { get; set; }
         public DbSet<User> Users { get; set; }
-        
+        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

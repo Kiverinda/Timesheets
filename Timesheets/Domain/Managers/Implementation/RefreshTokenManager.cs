@@ -1,15 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.Extensions.Options;
-using Timesheets.Data.Interfaces;
-using Timesheets.Domain.Interfaces;
-using Timesheets.Infrastructure.Extensions;
-using Timesheets.Models;
-using Timesheets.Models.Dto;
-using Timesheets.Models.Dto.Authentication;
+﻿using Timesheets.Data.Interfaces;
+using Timesheets.Domain.Managers.Interfaces;
+using Timesheets.Models.Entities;
 
-namespace Timesheets.Domain.Implementation
+namespace Timesheets.Domain.Managers.Implementation
 {
     public class RefreshTokenManager : IRefreshTokenManager
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Timesheets.Data.Interfaces;
-using Timesheets.Domain.Interfaces;
-using Timesheets.Models;
+using Timesheets.Domain.Managers.Interfaces;
 using Timesheets.Models.Dto;
+using Timesheets.Models.Entities;
 
-namespace Timesheets.Domain.Implementation
+namespace Timesheets.Domain.Managers.Implementation
 {
     public class EmployeeManager : IEmployeeManager
     {
